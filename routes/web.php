@@ -19,5 +19,5 @@ Route::get('/ejemplo', function () {
 });
 
 Route::get('ejemplo/submit', function () {
-    return "Kaixo ".$_GET["nombre"]."!!!";
+    return $_GET["nombre"];
 });
