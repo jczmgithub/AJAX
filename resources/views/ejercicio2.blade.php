@@ -11,60 +11,43 @@
         -->
 
         <script>
-            function comprobarExistenciaFicheroXML(event){
+            function loadDoc(event) {
                 event.preventDefault();
-                file_url = document.getElementById('formulario').elements['fichero'].value;
-                var http = new XMLHttpRequest();
-                http.open('HEAD', file_url, true);
-                http.onreadystatechange = function () {
-                    if (http.readyState == 4) {
-                        if (http.status == 200) {
-                            pedirContenidoFichero();
-                        } else {
-                            alert("El fichero no existe");
-                        }
-                    }
-                }
-                http.send();
-            }
-
-            function pedirPeliculas(){
-                var xhr = new XMLHttpRequest();
-                var url = "ejercicio1/submit" + "?fichero=" + document.getElementById('formulario').elements['fichero'].value;
-                xhr.open("GET", url, true);
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4) {
-                        // Se ha recibido la respuesta.
-                        if(xhr.status==200) {
-                            // Aquí escribiremos lo que queremos que
-                            // se ejecute tras recibir la respuesta
-                            var datosDoc = xhr.responseText;
-                            document.getElementById('respuesta').textContent = datosDoc;
-                        } else {
-                            // Ha ocurrido un error
-                            alert("Error: "+xhr.statusText);
-                        }
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        myFunction(this);
                     }
                 };
-                xhr.send(null);
+                xhttp.open("GET", "Peliculas.xml", true);
+                xhttp.send();
+            }
+            function myFunction(xml) {
+                var i;
+                var xmlDoc = xml.responseXML;
+                var table="<tr><th>Director</th><th>Titulo</th></tr>";
+                var x = xmlDoc.getElementsByTagName("Pelicula");
+                for (i = 0; i <x.length; i++) {
+                    table += "<tr><td>" +
+                        x[i].getElementsByTagName("Director")[0].childNodes[0].nodeValue +
+                        "</td><td>" +
+                        x[i].getElementsByTagName("Titulo")[0].childNodes[0].nodeValue +
+                        "</td></tr>";
+                }
+                document.getElementById("respuesta").innerHTML = table;
             }
         </script>
 
         <style>
-            #respuesta {
-                min-width: 200px;
-                min-height: 200px;
-                border: solid;
-                text-align: center;
-            }
+
         </style>
     </head>
     <body>
         <div align="center">
-            <form id="formulario" onsubmit="pedirPeliculas(event)">
+            <form id="formulario" onsubmit="loadDoc(event)">
                 <input type="submit" value="Pedir Peliculas"/>
             </form>
-            <p id="respuesta"/>
+            <table id="respuesta"/>
         </div>
     </body>
 </html>
