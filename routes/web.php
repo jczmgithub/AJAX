@@ -28,9 +28,12 @@ Route::get('/ejercicio1', function () {
 
 Route::get('ejercicio1/submit', function () {
     $nombreFichero = $_GET["fichero"];
-    //$rutaFichero = "/home/zubiri/"+$nombreFichero;
     $rutaFichero = $nombreFichero;
     $fichero = fopen("$rutaFichero", "r");
     $contenidoFichero = fread($fichero, filesize($rutaFichero));
     return $contenidoFichero;
+});
+
+Route::get('/ejercicio2', function () {
+    return view('ejercicio2');
 });
