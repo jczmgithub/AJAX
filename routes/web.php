@@ -37,3 +37,7 @@ Route::get('ejercicio1/submit', function () {
 Route::get('/ejercicio2', function () {
     return view('ejercicio2');
 });
+
+Route::get('/ejercicio3', function () {
+    return view('ejercicio3');
+});

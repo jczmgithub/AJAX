@@ -22,6 +22,7 @@
                 xhttp.open("GET", "Peliculas.xml", true);
                 xhttp.send();
             }
+
             function myFunction(xml) {
                 var i;
                 var xmlDoc = xml.responseXML;
