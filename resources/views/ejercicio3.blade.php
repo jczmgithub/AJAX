@@ -24,13 +24,14 @@
             }
 
             #sinopsisP {
+                max-width: 1000px;
                 min-height: 100px;
                 border: solid;
             }
         </style>
 
         <script>
-            var numCarteles = 0;
+            var xmlDoc;
 
             window.onload = iniciar;
             function iniciar() {
@@ -41,7 +42,7 @@
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        contarPeliculas(this);
+                        xmlDoc = this.responseXML;
                         crearCarteles();
                     }
                 };
@@ -49,40 +50,32 @@
                 xhttp.send();
             }
 
-            function contarPeliculas(xml) {
-                var xmlDoc = xml.responseXML;
-                var x = xmlDoc.getElementsByTagName("Pelicula");
-                for (var i = 0; i <x.length; i++) {
-                    numCarteles++;
-                }
-            }
-
             function crearCarteles() {
                 var carteles = document.getElementById("cartelesDiv");
 
-                for (var i = 0; i < numCarteles; i++) {
+                for (var i = 0; i < xmlDoc.getElementsByTagName("Pelicula").length; i++) {
                     var cartel = document.createElement("div");
                     cartel.className = "cartel";
                     cartel.id = "cartel"+i;
+                    cartel.textContent = cartel.id;
                     cartel.addEventListener("click", mostrarSinopsis);
                     carteles.appendChild(cartel);
                 }
             }
 
-            function mostrarSinopsis(xml) {
-                var i;
-                var xmlDoc = xml.responseXML;
-
+            function mostrarSinopsis() {
                 var sinopsis="Sinopsis: ";
+                /*
                 var x = xmlDoc.getElementsByTagName("Pelicula");
-                for (i = 0; i <x.length; i++) {
+
+                for (var i = 0; i <x.length; i++) {
                     sinopsis += "<tr><td>" +
                         x[i].getElementsByTagName("Director")[0].childNodes[0].nodeValue +
                         "</td><td>" +
                         x[i].getElementsByTagName("Titulo")[0].childNodes[0].nodeValue +
                         "</td></tr>";
                 }
-
+                */
                 document.getElementById("sinopsisP").textContent = sinopsis;
             }
 
