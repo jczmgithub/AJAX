@@ -41,3 +41,7 @@ Route::get('/ejercicio2', function () {
 Route::get('/ejercicio3', function () {
     return view('ejercicio3');
 });
+
+Route::get('/ejercicio4', function () {
+    return view('ejercicio4');
+});
