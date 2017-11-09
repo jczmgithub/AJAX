@@ -36,34 +36,38 @@
                 border: solid;
             }
 
-            #cartelesDiv {
+            #desplegablesDiv {
                 align-content: center;
             }
         </style>
 
         <script>
-            var xmlDoc;
+            var xmlDocPeliculas;
+            var formulario;
 
             window.onload = iniciar;
             function iniciar() {
-                loadDoc();
+                formulario = document.getElementById('formulario');
             }
 
-            function loadDoc() {
+            function pedirPeliculas(event) {
+                event.preventDefault();
+
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        xmlDoc = this.responseXML;
-                        crearCarteles();
+                        xmlDocPeliculas = this.responseXML;
+                        crearDesplegables();
+                        formulario.elements["submit"].disabled = true;
                     }
                 };
                 xhttp.open("GET", "Peliculas.xml", true);
                 xhttp.send();
             }
 
-            function crearCarteles() {
-                var carteles = document.getElementById("cartelesDiv");
-                var peliculas = xmlDoc.getElementsByTagName("Pelicula");
+            function crearDesplegables() {
+                var carteles = document.getElementById("desplegablesDiv");
+                var peliculas = xmlDocPeliculas.getElementsByTagName("Pelicula");
 
                 for (var i = 0; i < peliculas.length; i++) {
                     var cartel = document.createElement("div");
@@ -94,7 +98,10 @@
     </head>
     <body>
         <div align="center">
-            <div id="cartelesDiv"></div>
+            <form id="formulario" onsubmit="pedirPeliculas(event)">
+                <input type="submit" name="submit" value="Pedir peliculas"/>
+            </form>
+            <div id="desplegablesDiv"></div>
             <p id="sinopsisP"/>
         </div>
     </body>

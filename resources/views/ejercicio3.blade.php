@@ -36,18 +36,18 @@
         </style>
 
         <script>
-            var xmlDoc;
+            var xmlDocPeliculas;
 
             window.onload = iniciar;
             function iniciar() {
-                loadDoc();
+                loadDocPeliculas();
             }
 
-            function loadDoc() {
+            function loadDocPeliculas() {
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        xmlDoc = this.responseXML;
+                        xmlDocPeliculas = this.responseXML;
                         crearCarteles();
                     }
                 };
@@ -57,7 +57,7 @@
 
             function crearCarteles() {
                 var carteles = document.getElementById("cartelesDiv");
-                var peliculas = xmlDoc.getElementsByTagName("Pelicula");
+                var peliculas = xmlDocPeliculas.getElementsByTagName("Pelicula");
 
                 for (var i = 0; i < peliculas.length; i++) {
                     var cartel = document.createElement("div");
