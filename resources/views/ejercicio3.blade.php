@@ -16,17 +16,22 @@
 
         <style>
             .cartel {
-                width: 100px;
+                width: 120px;
                 height: 100px;
                 margin: 10px;
                 border: solid;
                 display: inline-block;
+                vertical-align: top;
             }
 
             #sinopsisP {
-                max-width: 1000px;
+                max-width: 900px;
                 min-height: 100px;
                 border: solid;
+            }
+
+            #cartelesDiv {
+                align-content: center;
             }
         </style>
 
@@ -52,55 +57,38 @@
 
             function crearCarteles() {
                 var carteles = document.getElementById("cartelesDiv");
+                var peliculas = xmlDoc.getElementsByTagName("Pelicula");
 
-                for (var i = 0; i < xmlDoc.getElementsByTagName("Pelicula").length; i++) {
+                for (var i = 0; i < peliculas.length; i++) {
                     var cartel = document.createElement("div");
                     cartel.className = "cartel";
                     cartel.id = "cartel"+i;
-                    cartel.textContent = cartel.id;
+                    cartel.textContent = peliculas[i].getElementsByTagName("Titulo")[0].childNodes[0].nodeValue;
                     cartel.addEventListener("click", mostrarSinopsis);
                     carteles.appendChild(cartel);
                 }
             }
 
-            function mostrarSinopsis() {
+            function mostrarSinopsis(event) {
                 var sinopsis="Sinopsis: ";
-                /*
-                var x = xmlDoc.getElementsByTagName("Pelicula");
 
-                for (var i = 0; i <x.length; i++) {
-                    sinopsis += "<tr><td>" +
-                        x[i].getElementsByTagName("Director")[0].childNodes[0].nodeValue +
-                        "</td><td>" +
-                        x[i].getElementsByTagName("Titulo")[0].childNodes[0].nodeValue +
-                        "</td></tr>";
-                }
-                */
-                document.getElementById("sinopsisP").textContent = sinopsis;
-            }
-
-            function myFunction(xml) {
-                var i;
-                var xmlDoc = xml.responseXML;
-
-                var sinopsis="Sinopsis: ";
-                var x = xmlDoc.getElementsByTagName("Pelicula");
-                for (i = 0; i <x.length; i++) {
-                    sinopsis += "<tr><td>" +
-                        x[i].getElementsByTagName("Director")[0].childNodes[0].nodeValue +
-                        "</td><td>" +
-                        x[i].getElementsByTagName("Titulo")[0].childNodes[0].nodeValue +
-                        "</td></tr>";
-                }
-
-                document.getElementById("sinopsisP").textContent = sinopsis;
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var xmlDocSinopsis = this.responseXML;
+                        sinopsis += xmlDocSinopsis.getElementsByTagName("Sinopsis")[0].childNodes[0].nodeValue;
+                        document.getElementById("sinopsisP").textContent = sinopsis;
+                    }
+                };
+                xhttp.open("GET", "sinopsis/"+event.target.textContent+".xml", true);
+                xhttp.send();
             }
         </script>
 
     </head>
     <body>
         <div align="center">
-            <div id="cartelesDiv" align="center"></div>
+            <div id="cartelesDiv"></div>
             <p id="sinopsisP"/>
         </div>
     </body>
