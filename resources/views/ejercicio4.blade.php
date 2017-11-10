@@ -44,6 +44,8 @@
         <script>
             var xmlDocPeliculas;
             var formulario;
+            var desplegables;
+            var peliculas;
 
             window.onload = iniciar;
             function iniciar() {
@@ -65,9 +67,39 @@
                 xhttp.send();
             }
 
+            function crearSelect(name) {
+                var select = document.createElement("select");
+                select.id = name;
+                desplegables.appendChild(select);
+
+            }
+
+            function crearOptions(selectName) {
+                var select = document.getElementById(selectName);
+                var defaultOption = document.createElement("option");
+                defaultOption.value = "";
+                defaultOption.selected = true;
+                defaultOption.disabled = true;
+                //defaultOption.hidden = true;
+                defaultOption.appendChild(document.createTextNode("Selecciona una opcion"));
+                select.appendChild(defaultOption);
+
+                for (var i = 0; i < peliculas.length; i++) {
+                    var option = document.createElement("option");
+                    option.value = i;
+                    option.appendChild(document.createTextNode("opcion 0"));
+                    select.appendChild(option);
+                }
+            }
+
             function crearDesplegables() {
-                var carteles = document.getElementById("desplegablesDiv");
-                var peliculas = xmlDocPeliculas.getElementsByTagName("Pelicula");
+                desplegables = document.getElementById("desplegablesDiv");
+                peliculas = xmlDocPeliculas.getElementsByTagName("Pelicula");
+
+                crearSelect("directorSelect");
+                crearOptions("directorSelect");
+
+                crearSelect("peliculaSelect");
 
                 for (var i = 0; i < peliculas.length; i++) {
                     var cartel = document.createElement("div");
@@ -75,7 +107,7 @@
                     cartel.id = "cartel"+i;
                     cartel.textContent = peliculas[i].getElementsByTagName("Titulo")[0].childNodes[0].nodeValue;
                     cartel.addEventListener("click", mostrarSinopsis);
-                    carteles.appendChild(cartel);
+                    desplegables.appendChild(cartel);
                 }
             }
 
