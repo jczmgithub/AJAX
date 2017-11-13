@@ -47,6 +47,7 @@
             var xmlDocPeliculas;
             var desplegables;
             var peliculas;
+            var selectDirector;
 
             window.onload = iniciar;
             function iniciar() {
@@ -86,7 +87,7 @@
             }
 
             function crearOptionsDirector() {
-                var selectDirector = document.getElementById("directorSelect");
+                selectDirector = document.getElementById("directorSelect");
                 crearDefaultOptions(selectDirector);
 
                 for (var i = 0; i < peliculas.length; i++) {
@@ -106,11 +107,14 @@
                 crearDefaultOptions(selectPelicula);
 
                 for (var i = 0; i < peliculas.length; i++) {
-                    var option = document.createElement("option");
-                    option.value = peliculas[i].getElementsByTagName("Titulo")[0].childNodes[0].nodeValue;
-                    var texto = peliculas[i].getElementsByTagName("Titulo")[0].childNodes[0].nodeValue;
-                    option.appendChild(document.createTextNode(texto));
-                    selectPelicula.appendChild(option);
+                    var director = peliculas[i].getElementsByTagName("Director")[0].childNodes[0].nodeValue;
+                    var titulo = peliculas[i].getElementsByTagName("Titulo")[0].childNodes[0].nodeValue;
+                    if (selectDirector.value == director) {
+                        var option = document.createElement("option");
+                        option.value = titulo;
+                        option.appendChild(document.createTextNode(titulo));
+                        selectPelicula.appendChild(option);
+                    }
                 }
 
                 selectPelicula.addEventListener("change", mostrarSinopsis);
