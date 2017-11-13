@@ -38,6 +38,7 @@
 
             #desplegablesDiv {
                 align-content: center;
+                margin-top: 20px;
             }
         </style>
 
@@ -86,10 +87,14 @@
 
                 for (var i = 0; i < peliculas.length; i++) {
                     var option = document.createElement("option");
-                    option.value = i;
-                    option.appendChild(document.createTextNode("opcion 0"));
+                    option.value = peliculas[i].getElementsByTagName("Titulo")[0].childNodes[0].nodeValue;
+                    var texto = peliculas[i].getElementsByTagName("Director")[0].childNodes[0].nodeValue;
+                    option.appendChild(document.createTextNode(texto));
                     select.appendChild(option);
                 }
+
+
+                select.addEventListener("change", mostrarSinopsis);
             }
 
             function crearDesplegables() {
@@ -100,7 +105,7 @@
                 crearOptions("directorSelect");
 
                 crearSelect("peliculaSelect");
-
+/*
                 for (var i = 0; i < peliculas.length; i++) {
                     var cartel = document.createElement("div");
                     cartel.className = "cartel";
@@ -109,6 +114,7 @@
                     cartel.addEventListener("click", mostrarSinopsis);
                     desplegables.appendChild(cartel);
                 }
+*/
             }
 
             function mostrarSinopsis(event) {
@@ -122,7 +128,7 @@
                         document.getElementById("sinopsisP").textContent = sinopsis;
                     }
                 };
-                xhttp.open("GET", "sinopsis/"+event.target.textContent+".xml", true);
+                xhttp.open("GET", "sinopsis/"+event.target.value+".xml", true);
                 xhttp.send();
             }
         </script>
