@@ -98,6 +98,8 @@
                     selectDirector.appendChild(option);
                 }
 
+
+
                 selectDirector.addEventListener("change", crearOptionsPelicula);
             }
 
