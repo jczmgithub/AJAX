@@ -81,10 +81,8 @@
                 crearOptionsDirector();
             }
 
-            function crearSelect(name) {
-                var select = document.createElement("select");
-                select.id = name;
-                desplegables.appendChild(select);
+            function crearSelectPeliculas() {
+                crearSelect("peliculaSelect");
             }
 
             function crearOptionsDirector() {
@@ -99,29 +97,12 @@
                     selectDirector.appendChild(option);
                 }
 
-                selectDirector.addEventListener("change", mostrarPeliculas);
-            }
-
-            function mostrarPeliculas() {
-                crearOptionsPelicula();
-            }
-
-            function crearDefaultOptions(select) {
-                var defaultOption = document.createElement("option");
-                defaultOption.value = "";
-                defaultOption.selected = true;
-                defaultOption.disabled = true;
-                //defaultOption.hidden = true;
-                defaultOption.appendChild(document.createTextNode("Selecciona una opcion"));
-                select.appendChild(defaultOption);
-            }
-
-            function crearSelectPeliculas() {
-                crearSelect("peliculaSelect");
+                selectDirector.addEventListener("change", crearOptionsPelicula);
             }
 
             function crearOptionsPelicula() {
                 var selectPelicula = document.getElementById("peliculaSelect");
+                vaciarSelect(selectPelicula);
                 crearDefaultOptions(selectPelicula);
 
                 for (var i = 0; i < peliculas.length; i++) {
@@ -149,6 +130,30 @@
                 xhttp.open("GET", "sinopsis/"+event.target.value+".xml", true);
                 xhttp.send();
             }
+
+            function crearSelect(name) {
+                var select = document.createElement("select");
+                select.id = name;
+                desplegables.appendChild(select);
+            }
+
+            function crearDefaultOptions(select) {
+                var defaultOption = document.createElement("option");
+                defaultOption.value = "";
+                defaultOption.selected = true;
+                defaultOption.disabled = true;
+                //defaultOption.hidden = true;
+                defaultOption.appendChild(document.createTextNode("Selecciona una opcion"));
+                select.appendChild(defaultOption);
+            }
+
+            function vaciarSelect(select) {
+                options = document.querySelectorAll("#"+select.id+" > option");
+                for (var i = 0; i < options.length; i++) {
+                    options[i].parentNode.removeChild(options[i]);
+                }
+            }
+
         </script>
 
     </head>
