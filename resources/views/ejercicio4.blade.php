@@ -97,9 +97,7 @@
                     option.appendChild(document.createTextNode(texto));
                     selectDirector.appendChild(option);
                 }
-
-
-
+                
                 selectDirector.addEventListener("change", crearOptionsPelicula);
             }
 
@@ -159,7 +157,6 @@
                     options[i].parentNode.removeChild(options[i]);
                 }
             }
-
         </script>
 
     </head>
