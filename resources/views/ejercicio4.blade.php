@@ -43,8 +43,8 @@
         </style>
 
         <script>
-            var xmlDocPeliculas;
             var formulario;
+            var xmlDocPeliculas;
             var desplegables;
             var peliculas;
 
@@ -68,15 +68,45 @@
                 xhttp.send();
             }
 
+            function crearDesplegables() {
+                desplegables = document.getElementById("desplegablesDiv");
+                peliculas = xmlDocPeliculas.getElementsByTagName("Pelicula");
+
+                crearSelectDirector();
+                crearSelectPeliculas();
+            }
+
+            function crearSelectDirector() {
+                crearSelect("directorSelect");
+                crearOptionsDirector();
+            }
+
             function crearSelect(name) {
                 var select = document.createElement("select");
                 select.id = name;
                 desplegables.appendChild(select);
-
             }
 
-            function crearOptions(selectName) {
-                var select = document.getElementById(selectName);
+            function crearOptionsDirector() {
+                var selectDirector = document.getElementById("directorSelect");
+                crearDefaultOptions(selectDirector);
+
+                for (var i = 0; i < peliculas.length; i++) {
+                    var option = document.createElement("option");
+                    option.value = peliculas[i].getElementsByTagName("Director")[0].childNodes[0].nodeValue;
+                    var texto = peliculas[i].getElementsByTagName("Director")[0].childNodes[0].nodeValue;
+                    option.appendChild(document.createTextNode(texto));
+                    selectDirector.appendChild(option);
+                }
+
+                selectDirector.addEventListener("change", mostrarPeliculas);
+            }
+
+            function mostrarPeliculas() {
+                crearOptionsPelicula();
+            }
+
+            function crearDefaultOptions(select) {
                 var defaultOption = document.createElement("option");
                 defaultOption.value = "";
                 defaultOption.selected = true;
@@ -84,37 +114,25 @@
                 //defaultOption.hidden = true;
                 defaultOption.appendChild(document.createTextNode("Selecciona una opcion"));
                 select.appendChild(defaultOption);
+            }
+
+            function crearSelectPeliculas() {
+                crearSelect("peliculaSelect");
+            }
+
+            function crearOptionsPelicula() {
+                var selectPelicula = document.getElementById("peliculaSelect");
+                crearDefaultOptions(selectPelicula);
 
                 for (var i = 0; i < peliculas.length; i++) {
                     var option = document.createElement("option");
                     option.value = peliculas[i].getElementsByTagName("Titulo")[0].childNodes[0].nodeValue;
-                    var texto = peliculas[i].getElementsByTagName("Director")[0].childNodes[0].nodeValue;
+                    var texto = peliculas[i].getElementsByTagName("Titulo")[0].childNodes[0].nodeValue;
                     option.appendChild(document.createTextNode(texto));
-                    select.appendChild(option);
+                    selectPelicula.appendChild(option);
                 }
 
-
-                select.addEventListener("change", mostrarSinopsis);
-            }
-
-            function crearDesplegables() {
-                desplegables = document.getElementById("desplegablesDiv");
-                peliculas = xmlDocPeliculas.getElementsByTagName("Pelicula");
-
-                crearSelect("directorSelect");
-                crearOptions("directorSelect");
-
-                crearSelect("peliculaSelect");
-/*
-                for (var i = 0; i < peliculas.length; i++) {
-                    var cartel = document.createElement("div");
-                    cartel.className = "cartel";
-                    cartel.id = "cartel"+i;
-                    cartel.textContent = peliculas[i].getElementsByTagName("Titulo")[0].childNodes[0].nodeValue;
-                    cartel.addEventListener("click", mostrarSinopsis);
-                    desplegables.appendChild(cartel);
-                }
-*/
+                selectPelicula.addEventListener("change", mostrarSinopsis);
             }
 
             function mostrarSinopsis(event) {
