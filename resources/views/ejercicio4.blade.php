@@ -5,14 +5,6 @@
 
         <title>Ejercicio4</title>
         <!--
-        2. Crear una página a la que le pediremos la lista de películas
-        almacenadas en un fichero XML que estara en el servidor.
-        A la hora de mostrarlos, se creara una tabla y apareceran en dos columnas separadas.
-
-        3. Crear una página en la que apareceran los carteles de las peliculas del ejercicio anterior.
-        Cuando pulsemos sobre cada cartel aparecera la sinopsis de esa pelicula en un partado que estara debajo de las imagenes.
-        Cada sinopsis se guardaran en un fichero diferente.
-
         4. Crear una página en la que habra un boton para pedir al servidor los datos de las peliculas.
         Cuando pulsemos sobre el nos apareceran dos objetos select (menu desplegable).
         En el primero elegiremos el nombre del director y en funcion de esa eleccion, en el segundo nos apareceran las peliculas de ese director.
@@ -21,15 +13,6 @@
         -->
 
         <style>
-            .cartel {
-                width: 120px;
-                height: 100px;
-                margin: 10px;
-                border: solid;
-                display: inline-block;
-                vertical-align: top;
-            }
-
             #sinopsisP {
                 max-width: 900px;
                 min-height: 100px;

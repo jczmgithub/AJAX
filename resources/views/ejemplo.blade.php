@@ -36,7 +36,7 @@
         <div align="center">
             <form id="formulario">
 
-                <input type="text" name="nombre" placeholder="Nombre"></br>
+                <input type="text" name="nombre" placeholder="Nombre"></br></br>
 
                 <input type="button" onclick="pruebaAJAX()" value="Enviar"></inputbutton>
 

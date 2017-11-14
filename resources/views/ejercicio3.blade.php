@@ -5,10 +5,6 @@
 
         <title>Ejercicio3</title>
         <!--
-        2. Crear una página a la que le pediremos la lista de películas
-        almacenadas en un fichero XML que estara en el servidor.
-        A la hora de mostrarlos, se creara una tabla y apareceran en dos columnas separadas.
-
         3. Crear una página en la que apareceran los carteles de las peliculas del ejercicio anterior.
         Cuando pulsemos sobre cada cartel aparecera la sinopsis de esa pelicula en un partado que estara debajo de las imagenes.
         Cada sinopsis se guardaran en un fichero diferente.

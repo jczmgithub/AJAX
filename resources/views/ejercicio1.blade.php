@@ -63,7 +63,7 @@
     <body>
         <div align="center">
             <form id="formulario" onsubmit="comprobarExistenciaFichero(event)">
-                <input type="text" name="fichero" placeholder="Nombre del fichero"></br>
+                <input type="text" name="fichero" placeholder="Nombre del fichero"></br></br>
 
                 <input type="submit" value="Mostrar contenido"/>
             </form>
