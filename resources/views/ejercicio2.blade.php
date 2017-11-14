@@ -11,19 +11,19 @@
         -->
 
         <script>
-            function loadDoc(event) {
+            function pedirPeliculas(event) {
                 event.preventDefault();
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        myFunction(this);
+                        crearTabla(this);
                     }
                 };
                 xhttp.open("GET", "Peliculas.xml", true);
                 xhttp.send();
             }
 
-            function myFunction(xml) {
+            function crearTabla(xml) {
                 var i;
                 var xmlDoc = xml.responseXML;
                 var table="<tr><th>Director</th><th>Titulo</th></tr>";
@@ -48,7 +48,7 @@
     </head>
     <body>
         <div align="center">
-            <form id="formulario" onsubmit="loadDoc(event)">
+            <form id="formulario" onsubmit="pedirPeliculas(event)">
                 <input type="submit" value="Pedir Peliculas"/>
             </form>
             <table id="respuesta"/>
