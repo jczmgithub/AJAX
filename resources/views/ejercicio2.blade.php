@@ -27,12 +27,12 @@
                 var i;
                 var xmlDoc = xml.responseXML;
                 var table="<tr><th>Director</th><th>Titulo</th></tr>";
-                var x = xmlDoc.getElementsByTagName("Pelicula");
-                for (i = 0; i <x.length; i++) {
+                var peliculas = xmlDoc.getElementsByTagName("Pelicula");
+                for (i = 0; i <peliculas.length; i++) {
                     table += "<tr><td>" +
-                        x[i].getElementsByTagName("Director")[0].childNodes[0].nodeValue +
+                        peliculas[i].getElementsByTagName("Director")[0].childNodes[0].nodeValue +
                         "</td><td>" +
-                        x[i].getElementsByTagName("Titulo")[0].childNodes[0].nodeValue +
+                        peliculas[i].getElementsByTagName("Titulo")[0].childNodes[0].nodeValue +
                         "</td></tr>";
                 }
                 document.getElementById("respuesta").innerHTML = table;
