@@ -99,37 +99,6 @@
                 }
 
                 selectDirector.addEventListener("change", crearOptionsPelicula);
-
-                //eliminar elentos duplicados???
-                var unique = function(origArr) {
-                    var newArr = [],
-                        origLen = origArr.length,
-                        found, x, y;
-
-                    for (x = 0; x < origLen; x++) {
-                        found = undefined;
-                        for (y = 0; y < newArr.length; y++) {
-                            if (origArr[x] === newArr[y]) {
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (!found) {
-                            newArr.push(origArr[x]);
-                        }
-                    }
-                    return newArr;
-                }
-
-                var arr = document.querySelectorAll("#directorSelect > option");
-
-                console.log(arr);
-                console.log(selectDirector);
-
-                var arrUnique = unique(arr);
-
-                alert(arrUnique);
-                //eliminar elentos duplicados???
             }
 
             function crearOptionsPelicula() {
