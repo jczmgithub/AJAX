@@ -40,7 +40,10 @@
         </script>
 
         <style>
-
+            #respuesta, th, td {
+                border: 1px solid black;
+                margin-top: 20px;
+            }
         </style>
     </head>
     <body>
