@@ -95,10 +95,22 @@
                     option.value = peliculas[i].getElementsByTagName("Director")[0].childNodes[0].nodeValue;
                     var texto = peliculas[i].getElementsByTagName("Director")[0].childNodes[0].nodeValue;
                     option.appendChild(document.createTextNode(texto));
-                    selectDirector.appendChild(option);
+                    if (!existeOptionDirector(option)) {
+                        selectDirector.appendChild(option);
+                    }
                 }
 
                 selectDirector.addEventListener("change", crearOptionsPelicula);
+            }
+
+            function existeOptionDirector(option) {
+                optionsActuales = document.querySelectorAll("#directorSelect > option");
+                for (var i = 0; i < optionsActuales.length; i++) {
+                    if (optionsActuales[i].value == option.value) {
+                        return true;
+                    }
+                }
+                return false;
             }
 
             function crearOptionsPelicula() {
